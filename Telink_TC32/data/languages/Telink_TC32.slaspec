@@ -442,7 +442,7 @@ attach names
 # tjex%c %S%x
 :tjex hi_reg_6_1_and_3_3 is op_7_9=0x000e & hi_reg_6_1_and_3_3 
 {
-    call [hi_reg_6_1_and_3_3];
+    goto [hi_reg_6_1_and_3_3];
 }
 
 # tloadm%c %8-10r!, %M
