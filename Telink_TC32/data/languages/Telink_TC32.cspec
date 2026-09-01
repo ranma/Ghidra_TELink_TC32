@@ -70,4 +70,14 @@
       </killedbycall>
     </prototype>
   </default_proto>
+
+  <callfixup name = "call_via_r3">
+    <pcode>
+      <body><![CDATA[
+            target:4 = r3 & 0xfffffffe;
+            lr = inst_next;
+            call [target];
+      ]]></body>
+    </pcode>
+  </callfixup>
 </compiler_spec>
