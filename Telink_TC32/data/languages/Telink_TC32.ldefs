@@ -11,5 +11,6 @@
     id="Telink_TC32:LE:16:default">
       <description>Telink TC32 16-Bit Microcontroller</description>
       <compiler name="default" spec="Telink_TC32.cspec" id="default"/>
+      <external_name tool="DWARF.register.mapping.file" name="Telink_TC32.dwarf"/>
   </language>
 </language_definitions>

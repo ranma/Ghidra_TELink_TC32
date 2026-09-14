@@ -1,0 +1,15 @@
+<dwarf>
+	<register_mappings>
+		<register_mapping dwarf="0" ghidra="r0" auto_count="10"/> <!-- r0..r9 -->
+		<register_mapping dwarf="10" ghidra="sl"/>
+		<register_mapping dwarf="11" ghidra="fp"/>
+		<register_mapping dwarf="12" ghidra="ip"/>
+		<register_mapping dwarf="13" ghidra="sp" stackpointer="true"/>
+		<register_mapping dwarf="14" ghidra="lr"/>
+		<register_mapping dwarf="15" ghidra="pc"/>
+		<register_mapping dwarf="16" ghidra="spsr"/>
+		<register_mapping dwarf="17" ghidra="cpsr"/>
+	</register_mappings>
+	<call_frame_cfa value="0"/>
+	<use_formal_parameter_storage/>
+</dwarf>
