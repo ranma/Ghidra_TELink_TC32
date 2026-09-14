@@ -80,4 +80,36 @@
       ]]></body>
     </pcode>
   </callfixup>
+
+  <callfixup name = "udivsi3">
+    <pcode>
+      <body><![CDATA[
+            r0 = r0 / r1;
+      ]]></body>
+    </pcode>
+  </callfixup>
+
+  <callfixup name = "divsi3">
+    <pcode>
+      <body><![CDATA[
+            r0 = r0 s/ r1;
+      ]]></body>
+    </pcode>
+  </callfixup>
+
+  <callfixup name = "umodsi3">
+    <pcode>
+      <body><![CDATA[
+            r0 = r0 % r1;
+      ]]></body>
+    </pcode>
+  </callfixup>
+
+  <callfixup name = "modsi3">
+    <pcode>
+      <body><![CDATA[
+            r0 = r0 s% r1;
+      ]]></body>
+    </pcode>
+  </callfixup>
 </compiler_spec>
