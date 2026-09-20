@@ -592,7 +592,7 @@ attach names
 }
 
 # tnop%c
-:tnop is op_0_16=0x46c0
+:tnop is op_0_16=0x06c0
 {
 }
 
