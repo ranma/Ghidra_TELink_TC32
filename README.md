@@ -31,6 +31,20 @@ The TC32 is fairly similar to 16-bit ARM9 Thumb instruction set.
 
 ELF binaries for TC32 use the machine type identifier 58.
 
+It re-implements the original Thumb-I instruction set, with slightly modified instruction encodings.
+For example on ARM Thumb, "NOP" is encoded as 0x46c0 while on TC32 "tnop" is encoded as 0x06c0. In both cases, it is an
+alias for "mov r8, r8".
+
+A few instructions like "SWI" (conditional jump with condition code 0xf) are omitted / unsupported. There is rudimentary
+mention of "tserv" in the toolchain, but it is not assembled/disassembled consistently and in testing behaves similar to a "never"
+condition code.
+
+A few instructions are specific to TC32 to enable thumb-only operation:
+- treti  "bx lr and restore CPSR from SPSR"
+- tmcsr  "mov CPSR, rn"
+- tmrcs  "mov rn, CPSR"
+- tmssr  "mov SPSR, rn"
+- tmrss  "mov rn, SPSR"
 
 ## Development Notes
 
