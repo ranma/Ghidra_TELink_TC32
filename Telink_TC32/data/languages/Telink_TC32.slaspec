@@ -17,7 +17,7 @@ define register offset=0x0000 size=4 [
   # TODO: Status registers?
 ];
 
-define register offset=0x0040 size=1 [ NG ZR CY OV tmpNG tmpZR tmpCY tmpOV shift_carry TB Q GE1 GE2 GE3 GE4 ]; 
+define register offset=0x0040 size=1 [ NG ZR CY OV tmpNG tmpZR tmpCY tmpOV shift_carry TB Q GE1 GE2 GE3 GE4 ];
 define register offset=0x0050 size=4 [ cpsr spsr ];
 define register offset=0x0060 size=4 [ mult_addr ];	# Special internal register for dealing with multiple stores/loads
 
@@ -55,10 +55,10 @@ macro th_affectflags() {
   CY = tmpCY; ZR = tmpZR; NG = tmpNG; OV = tmpOV;
 }
 
-define pcodeop setExecutionMode; # SVC, IRQ mode etc
-define pcodeop getExecutionMode;
-define pcodeop setState; # Unsure what exactly this state contains
-define pcodeop getState; 
+define pcodeop setCPSR; # Current Program State (flags and mode)
+define pcodeop getCPSR;
+define pcodeop setSPSR; # Saved Program State (copied from CPSR on IRQ entry)
+define pcodeop getSPSR;
 
 # Map of fields within the instruction that we will use during instruction
 # decoding.
@@ -516,7 +516,7 @@ attach names
 # tmcsr%c %0-2r
 :tmcsr reg_0_3 is op_3_13=0x0d78 & reg_0_3
 {
-    setExecutionMode(reg_0_3);
+    setCPSR(reg_0_3);
 }
 
 # tmov%C %8-10r, #%0-7d
@@ -551,19 +551,19 @@ attach names
 # tmrcs%c %0-2r
 :tmrcs reg_0_3 is op_3_13=0x0d79 & reg_0_3
 {
-    getExecutionMode(reg_0_3);
+    reg_0_3 = getCPSR();
 }
 
 # tmrss%c %0-2r
 :tmrss reg_0_3 is op_3_13=0x0d7b & reg_0_3
 {
-    getState(reg_0_3);
+    reg_0_3 = getSPSR();
 }
 
 # tmssr%c %0-2r
 :tmssr reg_0_3 is op_3_13=0x0d7a & reg_0_3
 {
-    setState(reg_0_3);
+    setSPSR(reg_0_3);
 }
 
 # tmul%C %0-2r, %3-5r
