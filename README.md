@@ -28,7 +28,12 @@ At this point the decompilation should be fairly accurate and resolve references
 
 ## Architecture Notes
 
-The TC32 is fairly similar to 16-bit ARM9 Thumb instruction set.
+The TC32 is fairly similar to 16-bit ARM4vT Thumb-I instruction set.
+
+It looks like the ARMv4T patents expired around 2015 and TC32:
+- Does not call itself ARM
+- Uses distinct instruction mnemonics
+- Uses distinct instruction encodings
 
 ELF binaries for TC32 use the machine type identifier 58.
 
@@ -72,7 +77,8 @@ TC32 encoding             TC32               ARM Thumb-I analogue    ARM Thumb e
 00000101 ds sss ddd       tcmp rd,rs         CMP rd,rs               01000101 ds sss ddd
 00000110 11 000 000       tnop               NOP                     mov r8, r8
 00000110 ds sss ddd       tmov rd,rs         MOV rd,rs               01000110 ds sss ddd
-000001110 mmmm 000        tjex rm            BX rm                   01000111 0 mmmm 000
+000001110 mmmm 000        tjex rm            BX rm                   010001110 mmmm 000
+                          not implemented    BLX rm (ARMv5T)         010001111 mmmm 000
 00001 ddd iiiiiiii        tloadr [pc,#imm8]  LDR [pc,#imm8]          01001 ddd iiiiiiii
 0001000 ooo bbb ddd       tstorer [r,r]      STR [r,r]               0101000 ooo bbb ddd
 0001001 ooo bbb ddd       tstorerh[r,r]      STRH [r,r]              0101001 ooo bbb ddd
@@ -95,10 +101,10 @@ TC32 encoding             TC32               ARM Thumb-I analogue    ARM Thumb e
 01100100 rrrrrrrr         tpush {...}        PUSH {...}              10110100 rrrrrrrr
 01100101 rrrrrrrr         tpush {...,lr}     PUSH {...,lr}           10110101 rrrrrrrr
 01101001 xxxxxxxx         treti              Restore CPSR from SPSR + POP {pc}
-01101011 11000 sss        tmcsr              MSR CPSR, Rs            not thumb in ARMv7
-01101011 11001 ddd        tmrcs              MRS Rd, CPSR            not thumb in ARMv7
-01101011 11010 sss        tmssr              MSR SPSR, Rs            not thumb in ARMv7
-01101011 11011 ddd        tmrss              MRS Rd, SPSR            not thumb in ARMv7
+01101011 11000 sss        tmcsr              MSR CPSR, Rs            not thumb in ARMv4
+01101011 11001 ddd        tmrcs              MRS Rd, CPSR            not thumb in ARMv4
+01101011 11010 sss        tmssr              MSR SPSR, Rs            not thumb in ARMv4
+01101011 11011 ddd        tmrss              MRS Rd, SPSR            not thumb in ARMv4
 01101100 rrrrrrrr         tpop {...}         POP {...}               10111100 rrrrrrrr
 01101101 rrrrrrrr         tpop {...,pc}      POP {...,pc}            10111101 rrrrrrrr
 01110 ddd iiiiiiii        tadd rd,pc,#imm    ADD rd,pc,#imm          10100 ddd iiiiiiii
